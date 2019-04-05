@@ -1,3 +1,7 @@
+% Creates elliptical structuring element using given angle in rad.
+% Note: Currently, image size, center, and radii are hardcoded. 
+%
+% author: sheen2@wisc.edu
 function se = createEllipticalStructuringElement(rad)
 
 

@@ -1,3 +1,4 @@
+function result = BlobsDemo(baseFileName)
 %------------------------------------------------------------------------------------------------
 % Demo to illustrate simple blob detection, measurement, and filtering.
 % Requires the Image Processing Toolbox (IPT) because it demonstates some functions
@@ -15,7 +16,7 @@
 % Startup code.
 tic; % Start timer.
 clc; % Clear command window.
-clearvars; % Get rid of variables from prior run of this m-file.
+% clearvars; % Get rid of variables from prior run of this m-file.
 fprintf('Running BlobsDemo.m...\n'); % Message sent to command window.
 workspace; % Make sure the workspace panel with all the variables is showing.
 imtool close all;  % Close all imtool figures.
@@ -37,8 +38,7 @@ end
 
 % Read in a standard MATLAB demo image of coins (US nickles and dimes, which are 5 cent and 10 cent coins)
 % baseFileName = 'CVCMUSCIMA_SR\CvcMuscima-Distortions\interrupted\w-06\symbol\p012.png';
-% baseFileName = 'CVCMUSCIMA_SR\CvcMuscima-Distortions\staffline-y-variation-v1\w-23\symbol\p006.png';
-baseFileName = 'CVCMUSCIMA_SR\CvcMuscima-Distortions\typeset-emulation\w-31\symbol\p010.png';
+% baseFileName = 'CVCMUSCIMA_SR\CvcMuscima-Distortions\typeset-emulation\w-31\symbol\p010.png';
 
 folder = fileparts(which(baseFileName)); % Determine where demo folder is (works with all versions).
 fullFileName = fullfile(folder, baseFileName);
@@ -123,15 +123,15 @@ for k = 1 : numberOfBlobs           % Loop through all blobs.
 	% directly into regionprops.  The way below works for all versions including earlier versions.)
 props = regionprops(labeledImage, 'BoundingBox');
 bb = [props.BoundingBox];
-allWidths = bb(3:4:end)
+allWidths = bb(3:4:end);
 %allWidths = blobMeasurements(k).width;
-allHeights = bb(4:4:end)
+allHeights = bb(4:4:end);
 %allHeights = blobMeasurements(k).height;
-aspectRatio = [allWidths./allHeights ;  allHeights  ./ allWidths]
-disp('Aspect Ratio');
-disp(aspectRatio);
-aspectRatios = max(aspectRatio, [], 1)
-compactIndexes = find(aspectRatios < 6) % or whatever.
+aspectRatio = [allWidths./allHeights ;  allHeights  ./ allWidths];
+% disp('Aspect Ratio');
+% disp(aspectRatio);
+aspectRatios = max(aspectRatio, [], 1);
+compactIndexes = find(aspectRatios < 0.5); % or whatever.
 
 end
 % Extract only those blobs with low aspect ratios.
@@ -145,7 +145,7 @@ staff_struct_element = strel('line', 11, 90);
 dilated_staff_img = imdilate(labeledImage, staff_struct_element);
 
 staff_struct_element = strel('line', 11, 90);
-eroded_staff_img = imerode(dilated_staff_img, staff_struct_element)
+eroded_staff_img = imerode(dilated_staff_img, staff_struct_element);
 imwrite(eroded_staff_img, 'image_after_dilation_erosion.png');
 
 for k = 1 : numberOfBlobs           % Loop through all blobs.
@@ -153,15 +153,15 @@ for k = 1 : numberOfBlobs           % Loop through all blobs.
 	% directly into regionprops.  The way below works for all versions including earlier versions.)
 props = regionprops(eroded_staff_img, 'BoundingBox');
 bb = [props.BoundingBox];
-allWidths = bb(3:4:end)
+allWidths = bb(3:4:end);
 %allWidths = blobMeasurements(k).width;
-allHeights = bb(4:4:end)
+allHeights = bb(4:4:end);
 %allHeights = blobMeasurements(k).height;
-aspectRatio = [allWidths./allHeights ;  allHeights  ./ allWidths]
-disp('Aspect Ratio');
-disp(aspectRatio);
-aspectRatios = max(aspectRatio, [], 1)
-compactIndexes = find(aspectRatios < 3) % or whatever.
+aspectRatio = [allWidths./allHeights ;  allHeights  ./ allWidths];
+% disp('Aspect Ratio');
+% disp(aspectRatio);
+aspectRatios = max(aspectRatio, [], 1);
+compactIndexes = find(aspectRatios < 3); % or whatever.
 
 end
 
@@ -170,6 +170,7 @@ subplot(2, 1, 2);
 imshow(binaryImage_2, []);
 imwrite(binaryImage_2,'image_after_algorithm.png');
 
+result = binaryImage_2;
 %{
 for k = 1 : numberOfBlobs           % Loop through all blobs.
 	% Find the mean of each blob.  (R2008a has a better way where you can pass the original image
