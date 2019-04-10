@@ -24,7 +24,7 @@ compactIndexes = intersect(find(allWidths < 12), find(allHeights > 16));
 end
 % Extract only those blobs with low aspect ratios.
 binaryImage = ismember(labeledImage, compactIndexes);
-imwrite(binaryImage,'img_stems_p001.png');
+imwrite(binaryImage,'img_stems_2.png');
 
 img_stems = binaryImage;
 %For p012.png
