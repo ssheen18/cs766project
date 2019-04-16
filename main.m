@@ -30,3 +30,5 @@ finalImg = finalImgClosing | finalImgOpening;
 noteStemCandidateImg = findNoteStemCandidates(vertFilteredImg);
 
 noteStemImg = detectNoteStems(noteStemCandidateImg, finalImg);
+
+evaluateResult(origImg, finalImgClosing);
