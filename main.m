@@ -31,4 +31,7 @@ noteStemCandidateImg = findNoteStemCandidates(vertFilteredImg);
 
 noteStemImg = detectNoteStems(noteStemCandidateImg, finalImg);
 
+beamMask = createBeamMask(noteStemImg, origImg);
+beamImg = detectBeams(beamMask, origImg);
+
 evaluateResult(origImg, finalImgClosing);
