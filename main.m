@@ -48,18 +48,18 @@ end
 
 Es_Notes = Es{1}
 Es_Stems = Es{2}
-save('centroid_properties_Noteheads', 'Es_Notes');
-save('centroid_properties_Stems', 'Es_Stems');
+%save('centroid_properties_Noteheads', 'Es_Notes');
+%save('centroid_properties_Stems', 'Es_Stems');
 
 [~,idx] = sort(Es_Notes(:,2)); % sort just the first column
 sortedmat_Notes = Es_Notes(idx,:);   % sort the whole matrix using the sort indices
     
-save('sorted_centroid_properties_Noteheads', 'sortedmat_Notes');
+%save('sorted_centroid_properties_Noteheads', 'sortedmat_Notes');
 
 [~,idx] = sort(Es_Stems(:,2)); % sort just the first column
 sortedmat_Stems = Es_Stems(idx,:);   % sort the whole matrix using the sort indices
     
-save('sorted_centroid_properties_Noteheads', 'sortedmat_Stems');
+%save('sorted_centroid_properties_Noteheads', 'sortedmat_Stems');
 
 %Find the closest stem centroid for every note centroid
 [m n k] = size(Es_Notes)
@@ -86,7 +86,7 @@ center_notes = cat(1,stats.Centroid);
 
 [~,idx] = sort(center_notes(:,2)); % sort just the first column
 sortedmat_center_notes = center_notes(idx,:);   % sort the whole matrix using the sort indices
-save('sorted_centers_notes', 'sortedmat_center_notes');
+%save('sorted_centers_notes', 'sortedmat_center_notes');
 for i=1:length(center_notes)
     idx3 = find(sortedmat_center_notes(i,1) == minimum(i,2))
 end
@@ -101,7 +101,7 @@ stats = regionprops(cc_2,'Centroid');
 center_stems = cat(1,stats.Centroid);
 [~,idx] = sort(center_stems(:,2)); % sort just the first column
 sortedmat_center_stems = center_stems(idx,:);   % sort the whole matrix using the sort indices
-save('sorted_centers_stems', 'sortedmat_center_stems');
+%save('sorted_centers_stems', 'sortedmat_center_stems');
 
 unique_min = unique(minimum(:,3))
 k=1
