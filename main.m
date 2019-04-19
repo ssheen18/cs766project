@@ -116,6 +116,7 @@ binaryimage_2 = ismember(img_stems,index);
 imwrite(double(binaryimage_2), 'binaryimage_2.png');
 
 %Create the mask
+%{
 img_list = {'binaryimage','binaryimage_2'};
 [height width] = size(binaryimage)
 mask = zeros(height,width);
@@ -129,6 +130,9 @@ for i = 1:length(img_list)
         end
     end
 end
+imwrite(double(mask), 'mask.png');
+%}
+mask = binaryimage | binaryimage_2
 imwrite(double(mask), 'mask.png');
                       
     
