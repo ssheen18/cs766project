@@ -87,7 +87,7 @@ beamImg = detectBeams(beamMask, origImg);
 imwrite(beamImg,'Image with Beams.png');
 evaluateResult(origImg, finalImgClosing);
 
-img_list = {hough_circle_and_closing,noteStemCandidateImg};
+img_list = {hough_circle_and_closing,noteStemImg};
 Es = cell(2,1)
 for i = 1:length(img_list)
     img = img_list{i};
@@ -147,7 +147,7 @@ imwrite(double(binaryimage), 'binaryimage.png');
 
 %Find the centers of the original notes image and retain the relevant notes
 %img_stems = imread('Image with Stems.png')
-cc_2 = bwconncomp(noteStemCandidateImg); 
+cc_2 = bwconncomp(noteStemImg); 
 stats = regionprops(cc_2,'Centroid'); 
 center_stems = cat(1,stats.Centroid);
 [~,idx] = sort(center_stems(:,2)); % sort just the first column
@@ -163,7 +163,7 @@ for i=1:length(center_stems)
         k = k+1;
     end
 end
-binaryimage_2 = ismember(noteStemCandidateImg,index);  
+binaryimage_2 = ismember(noteStemImg,index);  
 imwrite(double(binaryimage_2), 'binaryimage_2.png');
 
 %Create the mask
@@ -183,7 +183,7 @@ for i = 1:length(img_list)
 end
 imwrite(double(mask), 'mask.png');
 %}
-mask = binaryimage | binaryimage_2
+mask = binaryimage | binaryimage_2 | beamImg
 imwrite(double(mask), 'mask.png');
      
            

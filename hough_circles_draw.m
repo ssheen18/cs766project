@@ -17,7 +17,6 @@ function img = hough_circles_draw(img, centers, radii)
         yy = center_y + r * sin(theta);
         %plot(xx, yy,'g', 'LineWidth', 2);
         %// draw filled polygon
-        
         if r >= 5
             fill(xx,yy,[1,1,1],'FaceColor','white','EdgeColor','none')
             axis equal
