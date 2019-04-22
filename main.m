@@ -1,6 +1,8 @@
 % Main program for performing music symbol segmentation.
 %
 % author: sheen2@wisc.edu
+% author: akalyanaram2@wisc.edu
+% author: kalyanarama3@wisc.edu
 
 imgPath = 'p012.png';
 % imgPath = 'CVCMUSCIMA_SR\CvcMuscima-Distortions\staffline-y-variation-v1\w-23\symbol\p006.png';
@@ -26,7 +28,7 @@ figure; imshow(finalImgClosing);
 imwrite(im2double(finalImgClosing), 'closing noteheads.png');
 [height width] = size(finalImgClosing)
 
-mask = zeros(height, width, 'uint8')
+mask = zeros(height, width, 'uint8');
 
 hough_circle_img = hough_circles_draw(mask, centers, radii);
 imwrite(im2double(hough_circle_img),'hough_circles_drawn_p012.png');
@@ -193,5 +195,4 @@ allComp_Img = hough_circle_and_closing | finalStemImg | beamImg;
 imwrite(double(allComp_Img), 'FinalImage.png');
    
 evaluateResult(origImg, allComp_Img);
-    
     
