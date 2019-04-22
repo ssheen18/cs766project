@@ -78,19 +78,19 @@ vertFilteredImg = applyMedianFilter(origImg, 'vert');
 %finalImg = finalImgClosing;
 
 noteStemCandidateImg = findNoteStemCandidates(vertFilteredImg);
+imwrite(noteStemCandidateImg,'Image with Candidate Stems.png');
+
 
 noteStemImg = detectNoteStems(noteStemCandidateImg, hough_circle_and_closing);
 imwrite(noteStemImg,'Image with Stems.png');
 
-beamMask = createBeamMask(noteStemImg, origImg);
-beamImg = detectBeams(beamMask, origImg);
-imwrite(beamImg,'Image with Beams.png');
-evaluateResult(origImg, finalImgClosing);
 
-img_list = {hough_circle_and_closing,noteStemCandidateImg};
+
+img_list = {'HOUGH_CIRCLE_AND_CLOSING','Image with Candidate Stems'};
 Es = cell(2,1)
 for i = 1:length(img_list)
-    img = img_list{i};
+    img = imread([img_list{i} '.png']);
+    %img = im2uint8(img);
     [center radius img2]= centroids_calculation(img);
     %save('centroid_properties', 'center','radius');
     Es{i} = [center radius]
@@ -166,6 +166,7 @@ end
 binaryimage_2 = ismember(noteStemCandidateImg,index);  
 imwrite(double(binaryimage_2), 'binaryimage_2.png');
 
+finalStemImg = noteStemImg | binaryimage_2;
 %Create the mask
 %{
 img_list = {'binaryimage','binaryimage_2'};
@@ -183,9 +184,14 @@ for i = 1:length(img_list)
 end
 imwrite(double(mask), 'mask.png');
 %}
-mask = binaryimage | binaryimage_2
-imwrite(double(mask), 'mask.png');
-     
-           
+
+beamMask = createBeamMask(finalStemImg, origImg);
+beamImg = detectBeams(beamMask, origImg);
+imwrite(beamImg,'Image with Beams.png');
+
+allComp_Img = hough_circle_and_closing | finalStemImg | beamImg;
+imwrite(double(allComp_Img), 'FinalImage.png');
+   
+evaluateResult(origImg, allComp_Img);
     
     
