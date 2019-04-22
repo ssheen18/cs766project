@@ -5,6 +5,7 @@
 % author: kalyanarama3@wisc.edu
 
 imgPath = 'p012.png';
+imgPathGroundTruth = 'ground_truth_p012.png';
 % imgPath = 'CVCMUSCIMA_SR\CvcMuscima-Distortions\staffline-y-variation-v1\w-23\symbol\p006.png';
 % imgPath = 'CVCMUSCIMA_SR\CvcMuscima-Distortions\typeset-emulation\w-31\symbol\p010.png';
 
@@ -71,6 +72,7 @@ imwrite(im2double(hough_circle_and_closing),'HOUGH_CIRCLE_AND_CLOSING.png');
 %DETECTING STEMS ON THE APPENDED IMAGE
 % detecting stems using orientation, roundness, and noteheads
 origImg = imread(imgPath);
+groundTruthImg = im2bw(imread(imgPathGroundTruth), 0.5);
 
 vertFilteredImg = applyMedianFilter(origImg, 'vert');
 
@@ -118,8 +120,8 @@ sortedmat_Stems = Es_Stems(idx,:);   % sort the whole matrix using the sort indi
 [m n k] = size(Es_Notes)
 minimum = zeros(m,2)
 for i=1:m
-    indexes = find(sortedmat_Stems(:,1)< (sortedmat_Notes(i,1)+100) | sortedmat_Stems(:,1)> (sortedmat_Notes(i,1)-100))
-    minimum(i,1) = sortedmat_Stems(1,1)
+    indexes = find(sortedmat_Stems(:,1)< (sortedmat_Notes(i,1)+20) & sortedmat_Stems(:,1)> (sortedmat_Notes(i,1)-20))
+    minimum(i,1) = realmax();
     for j=1:length(indexes)
         difference = abs(sortedmat_Notes(i,1) - sortedmat_Stems(j,1))
         if(difference<minimum(i,1))
@@ -168,7 +170,9 @@ end
 binaryimage_2 = ismember(noteStemCandidateImg,index);  
 imwrite(double(binaryimage_2), 'binaryimage_2.png');
 
-finalStemImg = noteStemImg | binaryimage_2;
+% finalStemImg = noteStemImg | binaryimage_2;
+finalStemImg = noteStemImg;
+
 %Create the mask
 %{
 img_list = {'binaryimage','binaryimage_2'};
@@ -191,8 +195,9 @@ beamMask = createBeamMask(finalStemImg, origImg);
 beamImg = detectBeams(beamMask, origImg);
 imwrite(beamImg,'Image with Beams.png');
 
-allComp_Img = hough_circle_and_closing | finalStemImg | beamImg;
+
+allComp_Img = detectBeams(hough_circle_and_closing, origImg) | detectBeams(noteStemImg, origImg) | beamImg;
 imwrite(double(allComp_Img), 'FinalImage.png');
    
-evaluateResult(origImg, allComp_Img);
+evaluateResult(groundTruthImg, allComp_Img);
     
