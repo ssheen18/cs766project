@@ -1,3 +1,6 @@
+% Detects note stems using dilation and overlap with note heads
+%
+% author: sheen2@wisc.edu
 function result = detectNoteStems(candImg, blobImg)
 
 

@@ -1,3 +1,6 @@
+% Creates mask that contains pixels for creating beam image
+%
+% author: sheen2@wisc.edu
 function beamMask = createBeamMask(noteStems, orig)
     CC = bwconncomp(noteStems);
     CCProp = zeros(size(CC.PixelIdxList, 2), 2);

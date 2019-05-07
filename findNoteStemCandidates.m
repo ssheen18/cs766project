@@ -1,7 +1,8 @@
+% Finds note stem candidates using roundness.
+% Code taken from https://www.mathworks.com/help/images/identifying-round-objects.html
+%
+% author: sheen2@wisc.edu
 function result = findNoteStemCandidates(vertFilteredImg)
-
-    % finding round object
-    % (https://www.mathworks.com/help/images/identifying-round-objects.html)
     vertLineSegImg = zeros(size(vertFilteredImg, 1), size(vertFilteredImg, 2));
     [B,L] = bwboundaries(vertFilteredImg,'noholes');
     stats = regionprops(L,'Area');

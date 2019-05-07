@@ -3,7 +3,6 @@
 %
 % author: sheen2@wisc.edu
 function result = applyMedianFilter(img, mode)
-%     img = imread(imgPath);
     if strcmp(mode, 'vert') == 1
         filteredImg = medfilt2(img, [15, 1]);
     elseif strcmp(mode, 'horiz') == 1
@@ -13,14 +12,8 @@ function result = applyMedianFilter(img, mode)
         filteredImg = medfilt2(filteredImg, [1, 15]);
     end
 
-
-    
     imwrite(filteredImg,'image_after_medium_filter.png');
-    
-    
-    
-    
-    
+
     result = filteredImg;
 
 

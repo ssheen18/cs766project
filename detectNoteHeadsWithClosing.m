@@ -1,4 +1,5 @@
-% Detects note heads using closing
+% Reshapes connected components using closing and detects note heads using
+% small window.
 %
 % author: sheen2@wisc.edu
 function result = detectNoteHeadsWithClosing(img)
