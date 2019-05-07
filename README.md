@@ -1,5 +1,7 @@
-CS766 - Music Symbol Segmentation in OMR
- Akshaya Kalyanaraman, Abbinaya Kalyanaraman, Stephen Sheen
+CS766 - Music Symbol Segmentation in OMR 
+
+Akshaya Kalyanaraman, Abbinaya Kalyanaraman, Stephen Sheen
+
 
 This project is focused on the music symbol segmentation aspect of the OMR pipeline and we have detected note heads, note stems and note beams separately, after which we have merged them to form 1 single image.
 
